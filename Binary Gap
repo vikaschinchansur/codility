@@ -1,1 +1,41 @@
+// you can also use imports, for example:
+// import java.util.*;
 
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public int solution(int N) {
+        // write your code in Java SE 8
+        //var creations and inilitlizations
+        Boolean binGapValidity = false;
+        int  binGapCount = 0;
+        int  MaxBinGapCount = 0;
+        /*Integer boundary conditons check*/
+        if (N>=1 && N<=2147483647){
+            //Convert number 'N' to binary string 'binN'
+            String binN = Integer.toBinaryString(N);
+            for (int i = 0; i < binN.length(); i++){
+                //fetch the current Char 'c' from String 'binN'
+                char c = binN.charAt(i);
+                //increase count if its valid gap     
+                if(c=='0' && binGapValidity){
+                    binGapCount=binGapCount+1;
+                }
+                //check and set validilty of gap upon char='1'
+                if(!binGapValidity && c=='1'){
+                    binGapValidity=true;
+                }
+                //Set maximum gap count when current binary gap ends
+                if(c=='1' && binGapValidity){
+                    if(binGapCount>MaxBinGapCount){
+                        MaxBinGapCount=binGapCount;
+                    }
+                    binGapCount=0;
+                }
+            }
+            return MaxBinGapCount;
+        }
+        return 0;
+    }
+}
